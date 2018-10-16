@@ -12,7 +12,7 @@ import java.util.TimerTask;
 public class HeatingService extends Service {
 
     Timer timer;
-    long period=3000;
+    long period=60000;
 
     public HeatingService() {
         timer=new Timer();
