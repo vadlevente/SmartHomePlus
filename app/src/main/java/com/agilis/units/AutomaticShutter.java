@@ -29,6 +29,9 @@ public class AutomaticShutter {
     private AutomaticShutter(){
         secTo100 = 10;
         currentState = getCurrentState();
+        setDaybreak(6);
+        setMidday(13);
+        setDusk(18);
         moveShutter();
     }
 
