@@ -21,6 +21,10 @@
             android:name=".services.HeatingService"
             android:enabled="true"
             android:exported="true"></service>
+        <service
+            android:name=".services.ClockService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

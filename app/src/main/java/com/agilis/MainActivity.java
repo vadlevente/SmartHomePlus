@@ -7,14 +7,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.agilis.services.ClockService;
 import com.agilis.services.HeatingService;
+import com.agilis.units.AutomaticShutter;
 import com.agilis.units.CentralHeatingUnit;
 
 public class MainActivity extends AppCompatActivity{
 
     CentralHeatingUnit centralHeatingUnit;
+    AutomaticShutter automaticShutter;
 
     TextView temperatureTV;
+    TextView shutterTV;
     Button refreshBtn;
 
     @Override
@@ -23,20 +27,28 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         centralHeatingUnit=CentralHeatingUnit.getInstance();
+        automaticShutter=AutomaticShutter.getInstance();
 
         temperatureTV=(TextView)findViewById(R.id.temperatureTV);
         temperatureTV.setText(String.valueOf(centralHeatingUnit.getHeatingTemperature()));
+
+        shutterTV=(TextView)findViewById(R.id.shutterTV);
+        shutterTV.setText(String.valueOf(automaticShutter.getCurrentState())+"%");
 
         refreshBtn = (Button)findViewById(R.id.refreshBtn);
         refreshBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 temperatureTV.setText(String.valueOf(centralHeatingUnit.getHeatingTemperature()));
+                shutterTV.setText(String.valueOf(automaticShutter.getCurrentState())+"%");
             }
         });
 
-        Intent intent = new Intent(this, HeatingService.class);
-        startService(intent);
+        Intent intentHeatingService = new Intent(this, HeatingService.class);
+        startService(intentHeatingService);
+
+        Intent intentClockService = new Intent(this, ClockService.class);
+        startService(intentClockService);
     }
 
     @Override
