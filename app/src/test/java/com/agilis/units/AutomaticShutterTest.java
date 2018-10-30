@@ -59,15 +59,15 @@ public class AutomaticShutterTest {
 
     @Test
     public void moveUp_startingAndEndState_shutterMovedUp() throws InterruptedException {
-        automaticShutter.setState(20);
-        automaticShutter.moveUp(automaticShutter.getCurrentState(), 80);
-        Assert.assertEquals(80, automaticShutter.getCurrentState());
+        automaticShutter.setState(80);
+        automaticShutter.moveUp(automaticShutter.getCurrentState(), 20);
+        Assert.assertEquals(20, automaticShutter.getCurrentState());
     }
 
     @Test
     public void moveDown_startingAndEndState_shutterMovedDown() throws InterruptedException {
-        automaticShutter.setState(80);
-        automaticShutter.moveDown(automaticShutter.getCurrentState(), 20);
-        Assert.assertEquals(20, automaticShutter.getCurrentState());
+        automaticShutter.setState(20);
+        automaticShutter.moveDown(automaticShutter.getCurrentState(), 80);
+        Assert.assertEquals(80, automaticShutter.getCurrentState());
     }
 }
