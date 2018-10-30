@@ -28,7 +28,7 @@ public class AutomaticShutter {
 
     }
 
-    private AutomaticShutter(){
+    public AutomaticShutter(){
         secTo100 = 10;
         currentState = getCurrentState();
         setDaybreak(6);
