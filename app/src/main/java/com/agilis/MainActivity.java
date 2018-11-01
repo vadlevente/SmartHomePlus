@@ -14,11 +14,13 @@ import android.widget.ToggleButton;
 import com.agilis.services.ClockService;
 import com.agilis.units.AutomaticShutter;
 import com.agilis.units.CentralHeating;
+import com.agilis.units.CoffeeMachine;
 
 public class MainActivity extends AppCompatActivity{
 
     CentralHeating centralHeating;
     AutomaticShutter automaticShutter;
+    CoffeeMachine coffeeMachine;
 
     TextView temperatureTV;
     TextView shutterTV;
@@ -26,6 +28,9 @@ public class MainActivity extends AppCompatActivity{
     ToggleButton manualTemperatureTBtn;
     LinearLayout manualTemperatureLL;
     public static EditText manualTemperatureET;
+    TextView coffeeStatusTV;
+    public static EditText coffeeTimeHourET;
+    public static EditText coffeeTimeMinuteET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,7 @@ public class MainActivity extends AppCompatActivity{
 
         centralHeating=CentralHeating.getInstance();
         automaticShutter=AutomaticShutter.getInstance();
+        coffeeMachine=CoffeeMachine.getInstance();
 
         temperatureTV=(TextView)findViewById(R.id.temperatureTV);
         temperatureTV.setText(String.valueOf(centralHeating.getHauseTemperature()));
@@ -47,6 +53,7 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View v) {
                 temperatureTV.setText(String.valueOf(centralHeating.getHauseTemperature()));
                 shutterTV.setText(String.valueOf(automaticShutter.getCurrentState())+"%");
+                coffeeStatusTV.setText(CoffeeMachine.stateToString(coffeeMachine.getState()));
             }
         });
 
@@ -54,7 +61,7 @@ public class MainActivity extends AppCompatActivity{
         manualTemperatureLL = (LinearLayout)findViewById(R.id.manualTemperatureLL);
         manualTemperatureET = (EditText) findViewById(R.id.manualTemperatureET);
         manualTemperatureTBtn.setChecked(false);
-        manualTemperatureLL.setVisibility(LinearLayout.GONE);
+        manualTemperatureLL.setVisibility(LinearLayout.INVISIBLE);
         manualTemperatureTBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -62,10 +69,15 @@ public class MainActivity extends AppCompatActivity{
                     manualTemperatureLL.setVisibility(LinearLayout.VISIBLE);
                 } else {
                     centralHeating.setManual(false);
-                    manualTemperatureLL.setVisibility(LinearLayout.GONE);
+                    manualTemperatureLL.setVisibility(LinearLayout.INVISIBLE);
                 }
             }
         });
+
+        coffeeStatusTV = (TextView)findViewById(R.id.coffeeStatusTV);
+        coffeeStatusTV.setText(CoffeeMachine.stateToString(coffeeMachine.getState()));
+        coffeeTimeHourET = (EditText) findViewById(R.id.coffeeTimeHourET);
+        coffeeTimeMinuteET = (EditText) findViewById(R.id.coffeeTimeMinuteET);
 
         Intent intentClockService = new Intent(this, ClockService.class);
         startService(intentClockService);

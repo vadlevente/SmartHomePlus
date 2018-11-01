@@ -7,6 +7,7 @@ import android.os.IBinder;
 import com.agilis.MainActivity;
 import com.agilis.units.AutomaticShutter;
 import com.agilis.units.CentralHeating;
+import com.agilis.units.CoffeeMachine;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -43,6 +44,17 @@ public class ClockService extends Service {
                 /*** Automatic Shutter Unit ***/
                 AutomaticShutter.getInstance().moveShutter();
 
+
+                /*** Coffee Machine Unit ***/
+                CoffeeMachine coffeeMachine = CoffeeMachine.getInstance();
+                try {
+                    int coffeeTimeHour = Integer.parseInt(MainActivity.coffeeTimeHourET.getText().toString());
+                    int coffeeTimeMinute = Integer.parseInt(MainActivity.coffeeTimeMinuteET.getText().toString());
+                    coffeeMachine.setCoffeeTime(coffeeTimeHour,coffeeTimeMinute);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+                coffeeMachine.checkState();
 
             }
         }, 0, period);

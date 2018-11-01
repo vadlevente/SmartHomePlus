@@ -92,4 +92,61 @@
                 android:ems="10"/>
     </LinearLayout>
 
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kávégép:"
+                android:paddingRight="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+        <TextView
+                android:id="@+id/coffeeStatusTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingBottom="10dp">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kávé időpontja:"
+                android:paddingRight="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+        <EditText
+                android:id="@+id/coffeeTimeHourET"
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:inputType="numberDecimal"
+                android:text="7"
+                android:ems="2"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="óra"
+                android:textSize="18sp"/>
+        <EditText
+                android:id="@+id/coffeeTimeMinuteET"
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:inputType="numberDecimal"
+                android:text="50"
+                android:ems="2"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="perc"
+                android:textSize="18sp"/>
+    </LinearLayout>
+
 </LinearLayout>
