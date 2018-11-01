@@ -5,7 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.agilis.services.ClockService;
 import com.agilis.services.HeatingService;
@@ -20,6 +24,9 @@ public class MainActivity extends AppCompatActivity{
     TextView temperatureTV;
     TextView shutterTV;
     Button refreshBtn;
+    ToggleButton manualTemperatureTBtn;
+    LinearLayout manualTemperatureLL;
+    public static EditText manualTemperatureET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,26 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View v) {
                 temperatureTV.setText(String.valueOf(centralHeatingUnit.getHeatingTemperature()));
                 shutterTV.setText(String.valueOf(automaticShutter.getCurrentState())+"%");
+            }
+        });
+
+        manualTemperatureTBtn = (ToggleButton)findViewById(R.id.manualTemperatureTBtn);
+        manualTemperatureLL = (LinearLayout)findViewById(R.id.manualTemperatureLL);
+        manualTemperatureET = (EditText) findViewById(R.id.manualTemperatureET);
+        manualTemperatureTBtn.setChecked(false);
+        manualTemperatureLL.setVisibility(LinearLayout.GONE);
+        manualTemperatureTBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                System.out.println(isChecked);
+                if (isChecked) {
+                    // The toggle is enabled
+                    centralHeatingUnit.setManual(true);
+                    manualTemperatureLL.setVisibility(LinearLayout.VISIBLE);
+                } else {
+                    // The toggle is disabled
+                    centralHeatingUnit.setManual(false);
+                    manualTemperatureLL.setVisibility(LinearLayout.GONE);
+                }
             }
         });
 
