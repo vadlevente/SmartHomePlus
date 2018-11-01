@@ -6,11 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal">
+    <!--
     <Button
         android:id="@+id/refreshBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Frissítés"/>
+    -->
 
     <LinearLayout
         android:layout_width="match_parent"

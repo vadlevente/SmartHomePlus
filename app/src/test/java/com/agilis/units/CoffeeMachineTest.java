@@ -51,6 +51,7 @@ public class CoffeeMachineTest {
     public void beforeStateIsStandby() {
         coffeeMachine.setCoffeeTime(7, 50);
         setCalendar(createCalendar("2018-11-10 07:00"));
+        coffeeMachine.checkState();
         assertEquals( CoffeeMachine.STATE_STANDBY,coffeeMachine.getState());
     }
 
@@ -58,6 +59,7 @@ public class CoffeeMachineTest {
     public void duringStateIsWorking() {
         coffeeMachine.setCoffeeTime(7, 50);
         setCalendar(createCalendar("2018-11-10 07:49"));
+        coffeeMachine.checkState();
         assertEquals( CoffeeMachine.STATE_WORKING,coffeeMachine.getState());
     }
 
@@ -65,6 +67,7 @@ public class CoffeeMachineTest {
     public void afterStateIsReady() {
         coffeeMachine.setCoffeeTime(7, 50);
         setCalendar(createCalendar("2018-11-10 07:51"));
+        coffeeMachine.checkState();
         assertEquals( CoffeeMachine.STATE_READY,coffeeMachine.getState());
     }
 
@@ -72,6 +75,7 @@ public class CoffeeMachineTest {
     public void makeCoffeeAtAfternoon() {
         coffeeMachine.setCoffeeTime(15, 00);
         setCalendar(createCalendar("2018-11-10 15:01"));
+        coffeeMachine.checkState();
         assertEquals( CoffeeMachine.STATE_READY,coffeeMachine.getState());
     }
 
@@ -79,6 +83,7 @@ public class CoffeeMachineTest {
     public void makeCoffeeAtNight() {
         coffeeMachine.setCoffeeTime(22, 00);
         setCalendar(createCalendar("2018-11-10 22:01"));
+        coffeeMachine.checkState();
         assertEquals( CoffeeMachine.STATE_READY,coffeeMachine.getState());
     }
 

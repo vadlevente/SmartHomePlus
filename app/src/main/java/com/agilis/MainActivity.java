@@ -22,13 +22,13 @@ public class MainActivity extends AppCompatActivity{
     AutomaticShutter automaticShutter;
     CoffeeMachine coffeeMachine;
 
-    TextView temperatureTV;
-    TextView shutterTV;
-    Button refreshBtn;
+    public static TextView temperatureTV;
+    public static TextView shutterTV;
+    //Button refreshBtn;
     ToggleButton manualTemperatureTBtn;
     LinearLayout manualTemperatureLL;
     public static EditText manualTemperatureET;
-    TextView coffeeStatusTV;
+    public static TextView coffeeStatusTV;
     public static EditText coffeeTimeHourET;
     public static EditText coffeeTimeMinuteET;
 
@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity{
         shutterTV=(TextView)findViewById(R.id.shutterTV);
         shutterTV.setText(String.valueOf(automaticShutter.getCurrentState())+"%");
 
+        /*
         refreshBtn = (Button)findViewById(R.id.refreshBtn);
         refreshBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity{
                 coffeeStatusTV.setText(CoffeeMachine.stateToString(coffeeMachine.getState()));
             }
         });
+        */
 
         manualTemperatureTBtn = (ToggleButton)findViewById(R.id.manualTemperatureTBtn);
         manualTemperatureLL = (LinearLayout)findViewById(R.id.manualTemperatureLL);

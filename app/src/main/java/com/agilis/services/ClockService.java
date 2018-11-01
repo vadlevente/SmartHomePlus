@@ -1,14 +1,18 @@
 package com.agilis.services;
 
+import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
 
+import android.os.Looper;
 import com.agilis.MainActivity;
 import com.agilis.units.AutomaticShutter;
 import com.agilis.units.CentralHeating;
 import com.agilis.units.CoffeeMachine;
 
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -54,7 +58,18 @@ public class ClockService extends Service {
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                 }
+                coffeeMachine.setCalendar(Calendar.getInstance());
                 coffeeMachine.checkState();
+
+
+                /*** Refresh client app values ***/
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    public void run() {
+                        MainActivity.temperatureTV.setText(String.valueOf(CentralHeating.getInstance().getHauseTemperature()));
+                        MainActivity.shutterTV.setText(String.valueOf(AutomaticShutter.getInstance().getCurrentState())+"%");
+                        MainActivity.coffeeStatusTV.setText(CoffeeMachine.stateToString(CoffeeMachine.getInstance().getState()));
+                    }
+                });
 
             }
         }, 0, period);
