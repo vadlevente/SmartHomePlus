@@ -29,13 +29,7 @@ public class CentralHeatingUnitTDD {
     }
 
     public void adjustTemperature() {
-        if (isManual){
-            try {
-                heatingTemperature = Integer.parseInt(MainActivity.manualTemperatureET.getText().toString());
-            } catch (NumberFormatException e) {
-                //e.printStackTrace();
-            }
-        } else {
+        if (!isManual){
             int month = calendar.get(Calendar.MONTH);
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
             if (month == Calendar.NOVEMBER || month == Calendar.DECEMBER || month == Calendar.JANUARY || month == Calendar.FEBRUARY) {
@@ -52,6 +46,9 @@ public class CentralHeatingUnitTDD {
 
     public int getHeatingTemperature() {
         return heatingTemperature;
+    }
+    public void setHeatingTemperature(int heatingTemperature) {
+        this.heatingTemperature = heatingTemperature;
     }
 
     public void setCalendar(Calendar calendar) {

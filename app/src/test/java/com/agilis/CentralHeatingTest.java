@@ -51,6 +51,7 @@ public class CentralHeatingTest {
     @Test
     public void summerTemperatureIs0() {
         setCalendar(createCalendar("2018-06-10 12:00"));
+        heatingUnit.setManual(false);
         heatingUnit.adjustTemperature();
         int heatingTemperature = heatingUnit.getHeatingTemperature();
         assertEquals(0,heatingTemperature);
@@ -59,6 +60,7 @@ public class CentralHeatingTest {
     @Test
     public void winterNightTemperatureIs23() {
         setCalendar(createCalendar("2018-12-10 02:00"));
+        heatingUnit.setManual(false);
         heatingUnit.adjustTemperature();
         int heatingTemperature = heatingUnit.getHeatingTemperature();
         assertEquals(23,heatingTemperature);
@@ -67,9 +69,30 @@ public class CentralHeatingTest {
     @Test
     public void winterDayTemperatureIs21() {
         setCalendar(createCalendar("2018-12-10 12:00"));
+        heatingUnit.setManual(false);
         heatingUnit.adjustTemperature();
         int heatingTemperature = heatingUnit.getHeatingTemperature();
         assertEquals(21,heatingTemperature);
     }
 
+
+    @Test
+    public void manualStateTrue() {
+        heatingUnit.setManual(true);
+        assertEquals(true,heatingUnit.isManual());
+    }
+
+    @Test
+    public void manualStateFalse() {
+        heatingUnit.setManual(false);
+        assertEquals(false,heatingUnit.isManual());
+    }
+
+    @Test
+    public void manualTemperature() {
+        heatingUnit.setManual(true);
+        heatingUnit.setHeatingTemperature(15);
+        heatingUnit.adjustTemperature();
+        assertEquals(15,heatingUnit.getHeatingTemperature());
+    }
 }

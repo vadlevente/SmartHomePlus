@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
+import com.agilis.MainActivity;
 import com.agilis.units.TDDUnits.CentralHeatingUnitTDD;
 
 import java.util.Timer;
@@ -24,7 +25,16 @@ public class HeatingService extends Service {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                CentralHeatingUnitTDD.getInstance().adjustTemperature();
+                CentralHeatingUnitTDD centralHeatingUnitTDD = CentralHeatingUnitTDD.getInstance();
+                if (centralHeatingUnitTDD.isManual()){
+                    try {
+                        int heatingTemperature = Integer.parseInt(MainActivity.manualTemperatureET.getText().toString());
+                        centralHeatingUnitTDD.setHeatingTemperature(heatingTemperature);
+                    } catch (NumberFormatException e) {
+                        //e.printStackTrace();
+                    }
+                }
+                centralHeatingUnitTDD.adjustTemperature();
             }
         }, 0, period);
 
