@@ -12,13 +12,12 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.agilis.services.ClockService;
-import com.agilis.services.HeatingService;
 import com.agilis.units.AutomaticShutter;
-import com.agilis.units.TDDUnits.CentralHeatingUnitTDD;
+import com.agilis.units.CentralHeating;
 
 public class MainActivity extends AppCompatActivity{
 
-    CentralHeatingUnitTDD centralHeatingUnitTDD;
+    CentralHeating centralHeating;
     AutomaticShutter automaticShutter;
 
     TextView temperatureTV;
@@ -33,11 +32,11 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        centralHeatingUnitTDD=CentralHeatingUnitTDD.getInstance();
+        centralHeating=CentralHeating.getInstance();
         automaticShutter=AutomaticShutter.getInstance();
 
         temperatureTV=(TextView)findViewById(R.id.temperatureTV);
-        temperatureTV.setText(String.valueOf(centralHeatingUnitTDD.getHeatingTemperature()));
+        temperatureTV.setText(String.valueOf(centralHeating.getHauseTemperature()));
 
         shutterTV=(TextView)findViewById(R.id.shutterTV);
         shutterTV.setText(String.valueOf(automaticShutter.getCurrentState())+"%");
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity{
         refreshBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                temperatureTV.setText(String.valueOf(centralHeatingUnitTDD.getHeatingTemperature()));
+                temperatureTV.setText(String.valueOf(centralHeating.getHauseTemperature()));
                 shutterTV.setText(String.valueOf(automaticShutter.getCurrentState())+"%");
             }
         });
@@ -59,17 +58,14 @@ public class MainActivity extends AppCompatActivity{
         manualTemperatureTBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    centralHeatingUnitTDD.setManual(true);
+                    centralHeating.setManual(true);
                     manualTemperatureLL.setVisibility(LinearLayout.VISIBLE);
                 } else {
-                    centralHeatingUnitTDD.setManual(false);
+                    centralHeating.setManual(false);
                     manualTemperatureLL.setVisibility(LinearLayout.GONE);
                 }
             }
         });
-
-        Intent intentHeatingService = new Intent(this, HeatingService.class);
-        startService(intentHeatingService);
 
         Intent intentClockService = new Intent(this, ClockService.class);
         startService(intentClockService);
@@ -78,7 +74,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Intent intent = new Intent(this, HeatingService.class);
+        Intent intent = new Intent(this, ClockService.class);
         stopService(intent);
     }
 

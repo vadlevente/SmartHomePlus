@@ -88,17 +88,21 @@ public class AutomaticShutter {
     }
 
     public void moveUp(int startingState, int endState) throws InterruptedException {
-        int timeToEnd = (abs(startingState - endState) / 100) * secTo100 ;
+        int timeToEnd = Math.max( (int)(secTo100 * abs(startingState - endState) / 100.0), 1);
         //call to Shutter controller API's moveUp() command
-        wait(timeToEnd);
+        synchronized (this) {
+            wait(timeToEnd);
+        }
         //call to Shutter controller API's stop() command
         setState(endState);
     }
 
     public void moveDown(int startingState, int endState) throws InterruptedException {
-        int timeToEnd = (abs(startingState - endState) / 100) * secTo100 ;
+        int timeToEnd = Math.max( (int)(secTo100 * abs(startingState - endState) / 100.0), 1);
         //This method calls Shutter controller API's moveDown() command
-        wait(timeToEnd);
+        synchronized (this) {
+            wait(timeToEnd);
+        }
         //call to Shutter controller API's stop() command
         setState(endState);
     }

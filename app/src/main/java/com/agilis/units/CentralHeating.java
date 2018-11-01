@@ -1,31 +1,36 @@
-package com.agilis.units.TDDUnits;
+package com.agilis.units;
 
 import com.agilis.MainActivity;
 
 import java.util.Calendar;
 
-public class CentralHeatingUnitTDD {
+public class CentralHeating {
 
-    private static CentralHeatingUnitTDD instance;
+    private static CentralHeating instance;
 
-    private Calendar calendar = Calendar.getInstance();
-    private int heatingTemperature = 0;
+    private Calendar calendar;
+    private int heatingTemperature;
+    private int hauseTemperature;
 
-    private boolean isManual = false;  // set the temperature manually or calculate it based on the calendar
+    private boolean isManual;  // set the temperature manually or calculate it based on the calendar
 
-    public static CentralHeatingUnitTDD getInstance(){
+    public static CentralHeating getInstance(){
         if(instance==null){
-            instance=new CentralHeatingUnitTDD();
+            instance=new CentralHeating();
         }
         return instance;
     }
 
-    private CentralHeatingUnitTDD(){
+    private CentralHeating(){
+        resetUnit();
         adjustTemperature();
     }
 
     private void resetUnit(){
-        heatingTemperature=0;
+        calendar = Calendar.getInstance();
+        heatingTemperature = 0;
+        hauseTemperature = 0;
+        isManual = false;
     }
 
     public void adjustTemperature() {
@@ -42,6 +47,8 @@ public class CentralHeatingUnitTDD {
                 heatingTemperature = 0;
             }
         }
+
+        hauseTemperature = (int)Math.round((hauseTemperature + 2*heatingTemperature) / 3.0);
     }
 
     public int getHeatingTemperature() {
@@ -49,6 +56,13 @@ public class CentralHeatingUnitTDD {
     }
     public void setHeatingTemperature(int heatingTemperature) {
         this.heatingTemperature = heatingTemperature;
+    }
+
+    public int getHauseTemperature() {
+        return hauseTemperature;
+    }
+    public void setHauseTemperature(int hauseTemperature) {
+        this.hauseTemperature = hauseTemperature;
     }
 
     public void setCalendar(Calendar calendar) {

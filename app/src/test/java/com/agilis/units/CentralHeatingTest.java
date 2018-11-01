@@ -1,6 +1,4 @@
-package com.agilis;
-
-import com.agilis.units.TDDUnits.CentralHeatingUnitTDD;
+package com.agilis.units;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,12 +12,12 @@ import static org.junit.Assert.*;
 
 public class CentralHeatingTest {
 
-    CentralHeatingUnitTDD heatingUnit;
+    CentralHeating centralHeating;
     final String dateFormat = "yyyy-MM-dd HH:mm";
 
     @Before
     public void initUnit() {
-        heatingUnit = CentralHeatingUnitTDD.getInstance();
+        centralHeating = CentralHeating.getInstance();
     }
 
     public Calendar createCalendar(String time) {
@@ -35,64 +33,64 @@ public class CentralHeatingTest {
     }
 
     public void setCalendar(Calendar calendar) {
-        heatingUnit.setCalendar(calendar);
+        centralHeating.setCalendar(calendar);
     }
 
     @Test
     public void unitExists() {
-        assertNotNull(heatingUnit);
+        assertNotNull(centralHeating);
     }
 
     @Test
     public void hasTemperatureField() {
-        assertNotNull(heatingUnit.getHeatingTemperature());
+        assertNotNull(centralHeating.getHeatingTemperature());
     }
 
     @Test
     public void summerTemperatureIs0() {
         setCalendar(createCalendar("2018-06-10 12:00"));
-        heatingUnit.setManual(false);
-        heatingUnit.adjustTemperature();
-        int heatingTemperature = heatingUnit.getHeatingTemperature();
+        centralHeating.setManual(false);
+        centralHeating.adjustTemperature();
+        int heatingTemperature = centralHeating.getHeatingTemperature();
         assertEquals(0,heatingTemperature);
     }
 
     @Test
     public void winterNightTemperatureIs23() {
         setCalendar(createCalendar("2018-12-10 02:00"));
-        heatingUnit.setManual(false);
-        heatingUnit.adjustTemperature();
-        int heatingTemperature = heatingUnit.getHeatingTemperature();
+        centralHeating.setManual(false);
+        centralHeating.adjustTemperature();
+        int heatingTemperature = centralHeating.getHeatingTemperature();
         assertEquals(23,heatingTemperature);
     }
 
     @Test
     public void winterDayTemperatureIs21() {
         setCalendar(createCalendar("2018-12-10 12:00"));
-        heatingUnit.setManual(false);
-        heatingUnit.adjustTemperature();
-        int heatingTemperature = heatingUnit.getHeatingTemperature();
+        centralHeating.setManual(false);
+        centralHeating.adjustTemperature();
+        int heatingTemperature = centralHeating.getHeatingTemperature();
         assertEquals(21,heatingTemperature);
     }
 
 
     @Test
     public void manualStateTrue() {
-        heatingUnit.setManual(true);
-        assertEquals(true,heatingUnit.isManual());
+        centralHeating.setManual(true);
+        assertEquals(true, centralHeating.isManual());
     }
 
     @Test
     public void manualStateFalse() {
-        heatingUnit.setManual(false);
-        assertEquals(false,heatingUnit.isManual());
+        centralHeating.setManual(false);
+        assertEquals(false, centralHeating.isManual());
     }
 
     @Test
     public void manualTemperature() {
-        heatingUnit.setManual(true);
-        heatingUnit.setHeatingTemperature(15);
-        heatingUnit.adjustTemperature();
-        assertEquals(15,heatingUnit.getHeatingTemperature());
+        centralHeating.setManual(true);
+        centralHeating.setHeatingTemperature(15);
+        centralHeating.adjustTemperature();
+        assertEquals(15, centralHeating.getHeatingTemperature());
     }
 }
