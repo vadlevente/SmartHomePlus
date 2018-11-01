@@ -45,8 +45,7 @@ public class CentralHeatingTest {
 
     @Test
     public void hasTemperatureField() {
-        int heatingTemperature = heatingUnit.getHeatingTemperature();
-        assertEquals(heatingTemperature, 0);
+        assertNotNull(heatingUnit.getHeatingTemperature());
     }
 
     @Test

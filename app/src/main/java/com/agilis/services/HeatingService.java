@@ -4,7 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-import com.agilis.units.CentralHeatingUnit;
+import com.agilis.units.TDDUnits.CentralHeatingUnitTDD;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,7 +24,7 @@ public class HeatingService extends Service {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                CentralHeatingUnit.getInstance().adjustTemperature();
+                CentralHeatingUnitTDD.getInstance().adjustTemperature();
             }
         }, 0, period);
 

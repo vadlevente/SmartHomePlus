@@ -8,8 +8,8 @@ public class CentralHeatingUnitTDD {
 
     private static CentralHeatingUnitTDD instance;
 
-    private Calendar calendar;
-    private int heatingTemperature;
+    private Calendar calendar = Calendar.getInstance();
+    private int heatingTemperature = 0;
 
     private boolean isManual = false;  // set the temperature manually or calculate it based on the calendar
 
@@ -17,12 +17,11 @@ public class CentralHeatingUnitTDD {
         if(instance==null){
             instance=new CentralHeatingUnitTDD();
         }
-        instance.resetUnit();
         return instance;
     }
 
     private CentralHeatingUnitTDD(){
-        heatingTemperature=0;
+        adjustTemperature();
     }
 
     private void resetUnit(){

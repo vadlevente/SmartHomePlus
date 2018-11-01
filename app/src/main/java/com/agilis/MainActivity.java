@@ -14,11 +14,11 @@ import android.widget.ToggleButton;
 import com.agilis.services.ClockService;
 import com.agilis.services.HeatingService;
 import com.agilis.units.AutomaticShutter;
-import com.agilis.units.CentralHeatingUnit;
+import com.agilis.units.TDDUnits.CentralHeatingUnitTDD;
 
 public class MainActivity extends AppCompatActivity{
 
-    CentralHeatingUnit centralHeatingUnit;
+    CentralHeatingUnitTDD centralHeatingUnitTDD;
     AutomaticShutter automaticShutter;
 
     TextView temperatureTV;
@@ -33,11 +33,11 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        centralHeatingUnit=CentralHeatingUnit.getInstance();
+        centralHeatingUnitTDD=CentralHeatingUnitTDD.getInstance();
         automaticShutter=AutomaticShutter.getInstance();
 
         temperatureTV=(TextView)findViewById(R.id.temperatureTV);
-        temperatureTV.setText(String.valueOf(centralHeatingUnit.getHeatingTemperature()));
+        temperatureTV.setText(String.valueOf(centralHeatingUnitTDD.getHeatingTemperature()));
 
         shutterTV=(TextView)findViewById(R.id.shutterTV);
         shutterTV.setText(String.valueOf(automaticShutter.getCurrentState())+"%");
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity{
         refreshBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                temperatureTV.setText(String.valueOf(centralHeatingUnit.getHeatingTemperature()));
+                temperatureTV.setText(String.valueOf(centralHeatingUnitTDD.getHeatingTemperature()));
                 shutterTV.setText(String.valueOf(automaticShutter.getCurrentState())+"%");
             }
         });
@@ -58,14 +58,11 @@ public class MainActivity extends AppCompatActivity{
         manualTemperatureLL.setVisibility(LinearLayout.GONE);
         manualTemperatureTBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                System.out.println(isChecked);
                 if (isChecked) {
-                    // The toggle is enabled
-                    centralHeatingUnit.setManual(true);
+                    centralHeatingUnitTDD.setManual(true);
                     manualTemperatureLL.setVisibility(LinearLayout.VISIBLE);
                 } else {
-                    // The toggle is disabled
-                    centralHeatingUnit.setManual(false);
+                    centralHeatingUnitTDD.setManual(false);
                     manualTemperatureLL.setVisibility(LinearLayout.GONE);
                 }
             }
