@@ -11,6 +11,7 @@ import com.agilis.MainActivity;
 import com.agilis.units.AutomaticShutter;
 import com.agilis.units.CentralHeating;
 import com.agilis.units.CoffeeMachine;
+import com.agilis.units.WateringSystem;
 
 import java.util.Calendar;
 import java.util.Timer;
@@ -61,6 +62,11 @@ public class ClockService extends Service {
                 coffeeMachine.setCalendar(Calendar.getInstance());
                 coffeeMachine.checkState();
 
+                /*** Watering System Unit ***/
+                WateringSystem wateringSystem = WateringSystem.getInstance();
+                int rand = (int)(Math.random() * 100);
+                if(rand == 69) wateringSystem.sendMoistureSensorData((int)(Math.random() * 100)); // 1 in 100 chance to change the moisture to a random level
+
 
                 /*** Refresh client app values ***/
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -68,6 +74,8 @@ public class ClockService extends Service {
                         MainActivity.temperatureTV.setText(String.valueOf(CentralHeating.getInstance().getHauseTemperature()));
                         MainActivity.shutterTV.setText(String.valueOf(AutomaticShutter.getInstance().getCurrentState())+"%");
                         MainActivity.coffeeStatusTV.setText(CoffeeMachine.stateToString(CoffeeMachine.getInstance().getState()));
+                        MainActivity.wateringSystemStateTV.setText(WateringSystem.getInstance().getStateText());
+                        MainActivity.moistureLevelTV.setText(WateringSystem.getInstance().getMoistureText());
                     }
                 });
 

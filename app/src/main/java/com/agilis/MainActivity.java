@@ -15,15 +15,19 @@ import com.agilis.services.ClockService;
 import com.agilis.units.AutomaticShutter;
 import com.agilis.units.CentralHeating;
 import com.agilis.units.CoffeeMachine;
+import com.agilis.units.WateringSystem;
 
 public class MainActivity extends AppCompatActivity{
 
     CentralHeating centralHeating;
     AutomaticShutter automaticShutter;
     CoffeeMachine coffeeMachine;
+    WateringSystem wateringSystem;
 
     public static TextView temperatureTV;
     public static TextView shutterTV;
+    public static TextView moistureLevelTV;
+    public static TextView wateringSystemStateTV;
     //Button refreshBtn;
     ToggleButton manualTemperatureTBtn;
     LinearLayout manualTemperatureLL;
@@ -40,12 +44,19 @@ public class MainActivity extends AppCompatActivity{
         centralHeating=CentralHeating.getInstance();
         automaticShutter=AutomaticShutter.getInstance();
         coffeeMachine=CoffeeMachine.getInstance();
+        wateringSystem= WateringSystem.getInstance();
 
         temperatureTV=(TextView)findViewById(R.id.temperatureTV);
         temperatureTV.setText(String.valueOf(centralHeating.getHauseTemperature()));
 
         shutterTV=(TextView)findViewById(R.id.shutterTV);
         shutterTV.setText(String.valueOf(automaticShutter.getCurrentState())+"%");
+
+        moistureLevelTV = findViewById(R.id.MoistureLevelTV);
+        moistureLevelTV.setText(wateringSystem.getMoistureText());
+        wateringSystemStateTV = findViewById(R.id.WateringSystemStateTV);
+        wateringSystemStateTV.setText(wateringSystem.getStateText());
+
 
         /*
         refreshBtn = (Button)findViewById(R.id.refreshBtn);
