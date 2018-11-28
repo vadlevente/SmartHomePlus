@@ -71,7 +71,7 @@ public class ClockService extends Service {
                 /*** Refresh client app values ***/
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     public void run() {
-                        MainActivity.temperatureTV.setText(String.valueOf(CentralHeating.getInstance().getHauseTemperature()));
+                        MainActivity.temperatureTV.setText(String.valueOf(CentralHeating.getInstance().getHouseTemperature()));
                         MainActivity.shutterTV.setText(String.valueOf(AutomaticShutter.getInstance().getCurrentState())+"%");
                         MainActivity.coffeeStatusTV.setText(CoffeeMachine.stateToString(CoffeeMachine.getInstance().getState()));
                         MainActivity.wateringSystemStateTV.setText(WateringSystem.getInstance().getStateText());

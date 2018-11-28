@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity{
         wateringSystem= WateringSystem.getInstance();
 
         temperatureTV=(TextView)findViewById(R.id.temperatureTV);
-        temperatureTV.setText(String.valueOf(centralHeating.getHauseTemperature()));
+        temperatureTV.setText(String.valueOf(centralHeating.getHouseTemperature()));
 
         shutterTV=(TextView)findViewById(R.id.shutterTV);
         shutterTV.setText(String.valueOf(automaticShutter.getCurrentState())+"%");

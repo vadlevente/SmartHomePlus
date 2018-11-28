@@ -10,7 +10,7 @@ public class CentralHeating {
 
     private Calendar calendar;
     private int heatingTemperature;
-    private int hauseTemperature;
+    private int houseTemperature;
 
     private boolean isManual;  // set the temperature manually or calculate it based on the calendar
 
@@ -29,7 +29,7 @@ public class CentralHeating {
     private void resetUnit(){
         calendar = Calendar.getInstance();
         heatingTemperature = 0;
-        hauseTemperature = 0;
+        houseTemperature = 0;
         isManual = false;
     }
 
@@ -48,7 +48,7 @@ public class CentralHeating {
             }
         }
 
-        hauseTemperature = (int)Math.round((hauseTemperature + 2*heatingTemperature) / 3.0);
+        houseTemperature = (int)Math.round((houseTemperature + 2*heatingTemperature) / 3.0);
     }
 
     public int getHeatingTemperature() {
@@ -58,11 +58,11 @@ public class CentralHeating {
         this.heatingTemperature = heatingTemperature;
     }
 
-    public int getHauseTemperature() {
-        return hauseTemperature;
+    public int getHouseTemperature() {
+        return houseTemperature;
     }
-    public void setHauseTemperature(int hauseTemperature) {
-        this.hauseTemperature = hauseTemperature;
+    public void setHouseTemperature(int houseTemperature) {
+        this.houseTemperature = houseTemperature;
     }
 
     public void setCalendar(Calendar calendar) {
